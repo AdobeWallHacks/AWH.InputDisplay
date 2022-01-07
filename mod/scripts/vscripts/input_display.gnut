@@ -1,0 +1,207 @@
+global vector scaleFactor = Vector(0.5, 0.7)
+global function inputDisplayPrecache
+
+void function inputDisplayPrecache()
+{
+    thread inputDisplayInit()
+}
+
+struct
+{
+	vector position = Vector(0.5, 0.5) // Position on the screen as a ratio of screen size
+	bool horizontal = false // Whether the text is inline horizontally or stacked vertically
+	bool renderOnCockpit = false
+	float size = 40 // Size of the text
+	bool justifyLeft = false
+	float padding = 1 // Distance between keys as a ratio of screen size in hundredths
+	float textAlpha = 1
+
+	vector onColor = Vector(1, 1, 1) // Text color when the key is pressed, as RGB
+	vector offColor = Vector(0.2, 0.2, 0.2) // Text color when the key is not pressed, as RGB
+
+
+	array<int> keyListeners = [
+		IN_FORWARD,
+		IN_MOVELEFT,
+		IN_BACK,
+		IN_MOVERIGHT,
+		IN_JUMP,
+		IN_DUCK,
+		//IN_OFFHAND0,
+		IN_OFFHAND1
+	]
+	array<string> keyDisplays = [
+		"W",
+		"A",
+		"S",
+		"D",
+		"SPCE",
+		"DUK",
+		//"GREN",
+		"TACT",
+	]
+} settings
+
+
+
+/*
+array<int> keyCommandsArray <-
+[
+	KEY_W, //+forward
+	KEY_S, //+left
+	KEY_A, //+right
+	KEY_D, //+back
+	KEY_SPACE, //+jump
+]
+*/
+
+array<var> inputDisplayRUIs = []
+void function inputDisplayInit()
+{
+	// When placing texts, we will take the original position and apply the cumulative displacement to calculate our new position.
+	vector cumulativeDisplacement = Vector()
+
+	// If we wish to justify right horizonatally, we can start with the negative total displacement, so by the end our displacement is 0, achieving a rightward justification
+	if (!settings.justifyLeft && settings.horizontal)
+	{
+		for (int i; i < settings.keyDisplays.len(); i++)
+		{
+			vector disp = Vector(
+				getDisplacement(settings.keyDisplays[i].len()).x
+			)
+			cumulativeDisplacement -= disp
+		}
+	}
+
+	// Because our keys change color independently,
+	// a seperate rui must be created for each
+	// Loop through every key.
+	for (int i; i < settings.keyDisplays.len(); i++)
+	{
+		// Define the new rui
+		var newRui = null
+
+		// Create it based on the cockpit setting
+		if(settings.renderOnCockpit)
+			newRui = RuiCreate(
+				$"ui/cockpit_console_text_top_left.rpak",
+				clGlobal.topoCockpitHudPermanent,
+				RUI_DRAW_COCKPIT, -1
+			)
+		else
+			newRui = RuiCreate(
+				$"ui/cockpit_console_text_top_left.rpak",
+				clGlobal.topoFullScreen,
+				RUI_DRAW_HUD, -1
+			)
+
+		// Set the resolution
+		RuiSetResolution(
+			newRui, GetScreenSize()[0], GetScreenSize()[1]
+		)
+
+		// Add the new rui to our array of ruis
+		inputDisplayRUIs.append(newRui)
+
+		// Obtain the desired display string and set it
+		string text = settings.keyDisplays[i]
+		RuiSetString(inputDisplayRUIs[i], "msgText",
+			text
+		)
+		// Set the font size
+		RuiSetFloat(inputDisplayRUIs[i], "msgFontSize",
+			settings.size
+		)
+
+		// Position the text and calculate next displacement
+		vector textPosition = settings.position + cumulativeDisplacement
+		vector displacement = getDisplacement(text.len())
+
+		// In this edge case, we actually want to include the x displacement in our positioning, with cumulatively recording it
+		if(!settings.justifyLeft && !settings.horizontal)
+			textPosition += Vector(-displacement.x)
+
+		// Isolate the axis to record cumulatively
+		if(settings.horizontal)
+			cumulativeDisplacement += Vector(displacement.x, 0)
+		else
+			cumulativeDisplacement += Vector(0, displacement.y)
+
+		// Position the text
+		RuiSetFloat2(inputDisplayRUIs[i], "msgPos", textPosition)
+
+		RuiSetInt(inputDisplayRUIs[i], "maxLines", 1)
+		RuiSetInt(inputDisplayRUIs[i], "lineNum", 1)
+		RuiSetFloat(inputDisplayRUIs[i], "thicken", 0)
+	}
+
+	thread inputDisplayMain()
+}
+vector function getDisplacement(int textLength)
+{
+	vector displace = Vector()
+	float charWeight = 0
+
+	//Calculate X Displacement
+	charWeight = settings.size
+		/ GetScreenSize()[0]
+		* scaleFactor.x
+		* textLength
+
+	displace += Vector(
+		charWeight + settings.padding / 100,
+		0
+	)
+
+	//Calculate Y Displacement
+	charWeight = settings.size
+		/ GetScreenSize()[1]
+		* scaleFactor.y
+
+	displace += Vector(
+		0,
+		charWeight + settings.padding / 100
+	)
+
+	return displace
+}
+
+void function inputDisplayMain()
+{
+	while(true)
+	{
+        WaitFrame()
+        if(!IsLobby())
+		{
+			entity player = GetLocalViewPlayer()
+			if (player == null || !IsValid(player))
+			    continue
+
+			// Loop through all RUIs
+			for (int i; i < inputDisplayRUIs.len(); i++)
+			{
+				// Set Alpha
+				RuiSetFloat(inputDisplayRUIs[i], "msgAlpha", settings.textAlpha)
+
+				// Set correct color
+				if(player.IsInputCommandHeld(settings.keyListeners[i]))
+					RuiSetFloat3(
+						inputDisplayRUIs[i], "msgColor", settings.onColor
+					)
+				else
+					RuiSetFloat3(
+						inputDisplayRUIs[i], "msgColor", settings.offColor
+					)
+			}
+		}
+		else
+		{
+			// Loop through all RUIs
+			for (int i; i < inputDisplayRUIs.len(); i++)
+			{
+				// Set Alpha
+            	RuiSetFloat(inputDisplayRUIs[0], "msgAlpha", 0.0)
+			}
+        }
+	}
+}

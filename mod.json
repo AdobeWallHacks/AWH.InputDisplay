@@ -1,0 +1,19 @@
+{
+    "Name": "AWH.InputDisplay",
+    "Description": "A minimalist little input display",
+	"LoadPriority": 2,
+	"RequiredOnClient": false,
+	"Version": "1.0",
+
+    "ConVars": [],
+    "Scripts": [
+        {
+            "Path": "input_display.gnut",
+			"RunOn": "CLIENT",
+			"ClientCallback": {
+				"After": "inputDisplayPrecache"
+			}
+        }
+    ],
+    "Localisation": []
+}
