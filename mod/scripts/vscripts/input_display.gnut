@@ -26,22 +26,12 @@ struct
 		IN_MOVELEFT,
 		IN_BACK,
 		IN_MOVERIGHT,
-		//IN_JUMP,
-		//IN_DUCK,
-		IN_ATTACK, //fire
-		//IN_OFFHAND0, //ordinace
-		//IN_OFFHAND1, //ability
 	]
 	array<string> keyDisplays = [
 		"W",
 		"A",
 		"S",
 		"D",
-		//"JUMP",
-		//"CROUTCH",
-		"FIRE",
-		//"GRENADE",
-		//"TACTICAL",
 	]
 
 } settings
@@ -192,7 +182,7 @@ void function inputDisplayMain()
 			for (int i; i < inputDisplayRUIs.len(); i++)
 			{
 				// Set Alpha
-            	RuiSetFloat(inputDisplayRUIs[0], "msgAlpha", 0.0)
+            	RuiSetFloat(inputDisplayRUIs[i], "msgAlpha", 0.0)
 			}
         }
 	}
