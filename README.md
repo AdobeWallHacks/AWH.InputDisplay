@@ -39,9 +39,11 @@ Transparency of the display as a percentage.
 
 ### vector onColor
 Text color when the key is pressed, as RGB.
+Accepts both 0.0 -> 0.1 and 1 -> 255.
 
 ### vector offColor
 Text color when the key is not pressed, as RGB.
+Accepts both 0.0 -> 0.1 and 1 -> 255.
 
 ### array<int> keyListeners
 These are the commands the script checks with the engine to determine whether an input is pressed.
