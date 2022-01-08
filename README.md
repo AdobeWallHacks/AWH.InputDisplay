@@ -58,10 +58,23 @@ You can set them to the actual keys you're pressing, or simply the names of the 
   
 The script will automatically resize everything based on the text length.
 
-- In regards to the Listener Display array pair, I've included every command I feel someone would want.
-- By default, listeners for movement keys are enabled. 
-- To enable more, uncomment (remove the // from the front of) the command and display text from both arrays.
-- Just make sure that theres the same amount in both.
+## Adding more keys
+To add more keys, add one of the following commands to keyListeners, and the UI string to keyDisplays
+  
+| Function | Value |
+| ----------- | ----------- |
+| Move Forward | IN_FORWARD |
+| Move Backward | IN_BACK |
+| Move Left | IN_MOVELEFT |
+| Move Right | IN_MOVERIGHT |
+| Jump | IN_JUMP |
+| Croutch | IN_DUCK |
+| Fire weapon | IN_ATTACK |
+| Aim weapon |IN_ZOOM |
+| Grenade | IN_OFFHAND0 |
+| Pilot Ability | IN_OFFHAND1 |
+
+==Just make sure that theres the same amount in both.==
 
 ## TODO:
 - A 'compact' mode where only keys that are pressed are displayed
