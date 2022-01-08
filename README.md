@@ -7,7 +7,7 @@ vector Position
 - Position on the screen as a ratio of screen size
 
 
-###bool horizontal
+### bool horizontal
 - Whether the text is inline horizontally or stacked vertically
 
 
