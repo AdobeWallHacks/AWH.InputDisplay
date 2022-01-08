@@ -6,54 +6,46 @@ void function inputDisplayPrecache()
     thread inputDisplayInit()
 }
 
+// READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
 struct
 {
-	vector position = Vector(0.5, 0.5) // Position on the screen as a ratio of screen size
-	bool horizontal = false // Whether the text is inline horizontally or stacked vertically
+	// READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
+	vector position = Vector(0.5, 0.5)
+	bool horizontal = false
 	bool renderOnCockpit = false
-	float size = 40 // Size of the text
+	float size = 40
 	bool justifyLeft = false
-	float padding = 1 // Distance between keys as a ratio of screen size in hundredths
+	float padding = 1
 	float textAlpha = 1
 
-	vector onColor = Vector(1, 1, 1) // Text color when the key is pressed, as RGB
-	vector offColor = Vector(0.2, 0.2, 0.2) // Text color when the key is not pressed, as RGB
-
+	vector onColor = Vector(1, 1, 1)
+	vector offColor = Vector(0.2, 0.2, 0.2)
 
 	array<int> keyListeners = [
 		IN_FORWARD,
 		IN_MOVELEFT,
 		IN_BACK,
 		IN_MOVERIGHT,
-		IN_JUMP,
-		IN_DUCK,
-		//IN_OFFHAND0,
-		IN_OFFHAND1
+		//IN_JUMP,
+		//IN_DUCK,
+		IN_ATTACK, //fire
+		//IN_OFFHAND0, //ordinace
+		//IN_OFFHAND1, //ability
 	]
 	array<string> keyDisplays = [
 		"W",
 		"A",
 		"S",
 		"D",
-		"SPCE",
-		"DUK",
-		//"GREN",
-		"TACT",
+		//"JUMP",
+		//"CROUTCH",
+		"FIRE",
+		//"GRENADE",
+		//"TACTICAL",
 	]
+
 } settings
-
-
-
-/*
-array<int> keyCommandsArray <-
-[
-	KEY_W, //+forward
-	KEY_S, //+left
-	KEY_A, //+right
-	KEY_D, //+back
-	KEY_SPACE, //+jump
-]
-*/
+// READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
 
 array<var> inputDisplayRUIs = []
 void function inputDisplayInit()
