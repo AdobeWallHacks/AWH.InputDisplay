@@ -58,10 +58,10 @@ You can set them to the actual keys you're pressing, or simply the names of the 
   
 The script will automatically resize everything based on the text length.
 
-In regards to the Listener Display array pair, I've included every command I feel someone would want.
-By default, listeners for movement keys are enabled. 
-To enable more, uncomment (remove the // from the front of) the command and display text from both arrays.
-Just make sure that theres the same amount in both.
+- In regards to the Listener Display array pair, I've included every command I feel someone would want.
+- By default, listeners for movement keys are enabled. 
+- To enable more, uncomment (remove the // from the front of) the command and display text from both arrays.
+- Just make sure that theres the same amount in both.
 
 ## TODO:
 - A 'compact' mode where only keys that are pressed are displayed
