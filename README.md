@@ -5,10 +5,10 @@ Keys light up when you press them.
 ## Settings
 ### vector Position
 Position on the screen as a ratio of screen size.
-	---
+---
 ### bool horizontal
 Whether the text is inline horizontally or stacked vertically.
-	---
+---
 ### bool renderOnCockpit
 Determines the UI topography. 
 
