@@ -1,8 +1,8 @@
-#AWH.InputDisplay
+# AWH.InputDisplay
 A little in-game input display.
 Keys light up when you press them.
 
-##Settings
+## Settings
 - vector Position
 	Position on the screen as a ratio of screen size
 
