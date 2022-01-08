@@ -39,10 +39,12 @@ Transparency of the display as a percentage.
 
 ### vector onColor
 Text color when the key is pressed, as RGB.
+
 Accepts both 0.0 -> 1.0 and 1 -> 255.
 
 ### vector offColor
 Text color when the key is not pressed, as RGB.
+
 Accepts both 0.0 -> 1.0 and 1 -> 255.
 
 ### array<int> keyListeners
