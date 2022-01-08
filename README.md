@@ -10,13 +10,13 @@ Position on the screen as a ratio of screen size.
 Whether the text is inline horizontally or stacked vertically.
 
 ### bool renderOnCockpit
-Determines the UI topography. 
+Determines the UI topography.
 
 Enabling this makes the UI curved, and lets it bob with player movement.
 
 Disabling this make the UI flat, and static.
 
-My reccomendation is if you plan to place this next to other ui (such as the bottom left corner),
+My recommendation is if you plan to place this next to other ui (such as the bottom left corner),
 enable it so that it blends well together.
 
 ### float size
@@ -45,22 +45,22 @@ Text color when the key is not pressed, as RGB.
 
 ### array<int> keyListeners
 These are the commands the script checks with the engine to determine whether an input is pressed.
-  
-The effect of this is that it is bind-independent. 
+
+The effect of this is that it is bind-independent.
 When you croutch, the script doesnt know what key you pressed to get there, just that you did.
-  
+
 The keyDisplays settings exists as a result.
-  
+
 ### array<string> keyDisplays
 These are the strings that will actually appear on the UI.
-  
+
 You can set them to the actual keys you're pressing, or simply the names of the commands themselves.
-  
+
 The script will automatically resize everything based on the text length.
 
 ## Adding more keys
 To add more keys, add one of the following commands to keyListeners, and the UI string to keyDisplays
-  
+
 | Function | Value |
 | ----------- | ----------- |
 | Move Forward | IN_FORWARD |
