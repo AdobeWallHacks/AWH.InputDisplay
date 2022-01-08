@@ -33,7 +33,6 @@ struct
 		"S",
 		"D",
 	]
-
 } settings
 // READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
 
@@ -117,6 +116,13 @@ void function inputDisplayInit()
 		RuiSetFloat(inputDisplayRUIs[i], "thicken", 0)
 	}
 
+	//Fix colors if they are in 1-255 format
+	if (settings.onColor.x > 1 || settings.onColor.y > 1 || settings.onColor.z > 1)
+		settings.onColor /= 255
+
+	if (settings.offColor.x > 1 || settings.offColor.y > 1 || settings.offColor.z > 1)
+		settings.offColor /= 255
+
 	thread inputDisplayMain()
 }
 vector function getDisplacement(int textLength)
@@ -162,17 +168,20 @@ void function inputDisplayMain()
 			// Loop through all RUIs
 			for (int i; i < inputDisplayRUIs.len(); i++)
 			{
+
 				// Set Alpha
 				RuiSetFloat(inputDisplayRUIs[i], "msgAlpha", settings.textAlpha)
 
 				// Set correct color
 				if(player.IsInputCommandHeld(settings.keyListeners[i]))
 					RuiSetFloat3(
-						inputDisplayRUIs[i], "msgColor", settings.onColor
+						inputDisplayRUIs[i], "msgColor",
+						settings.onColor
 					)
 				else
 					RuiSetFloat3(
-						inputDisplayRUIs[i], "msgColor", settings.offColor
+						inputDisplayRUIs[i], "msgColor",
+						settings.offColor
 					)
 			}
 		}
