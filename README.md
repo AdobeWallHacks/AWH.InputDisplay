@@ -74,7 +74,7 @@ To add more keys, add one of the following commands to keyListeners, and the UI 
 | Grenade | IN_OFFHAND0 |
 | Pilot Ability | IN_OFFHAND1 |
 
-==Just make sure that theres the same amount in both.==
+Just make sure that theres ==the same amount== in both arrays.
 
 ## TODO:
 - A 'compact' mode where only keys that are pressed are displayed
