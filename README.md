@@ -5,6 +5,7 @@ Keys light up when you press them.
 ## Settings
 ### vector Position
 Position on the screen as a ratio of screen size.
+Only used when using autoPosition
 
 ### bool horizontal
 Whether the text is inline horizontally or stacked vertically.
@@ -21,6 +22,11 @@ enable it so that it blends well together.
 
 ### float size
 Size of the text.
+
+### bool autoPosition
+Determines whether text is placed automatically inline or manually.
+
+Disable this if you want your key indicators in a pattern that is not a line.
 
 ### bool justifyLeft
 Determines whether the text is justified to the left or to the right of the Position.
@@ -62,6 +68,9 @@ You can set them to the actual keys you're pressing, or simply the names of the 
 
 The script will automatically resize everything based on the text length.
 
+### array<vector> keyPositions
+These are the positions that each key will reside at, given that autoPosition is disabled.
+
 ## Adding more keys
 To add more keys, add one of the following commands to keyListeners, and the UI string to keyDisplays
 
@@ -78,7 +87,7 @@ To add more keys, add one of the following commands to keyListeners, and the UI 
 | Grenade | IN_OFFHAND0 |
 | Pilot Ability | IN_OFFHAND1 |
 
-Just make sure that theres the same amount in both arrays.
+Just make sure that theres the same amount in all arrays.
 
 ## TODO:
 - A 'compact' mode where only keys that are pressed are displayed

@@ -10,28 +10,47 @@ void function inputDisplayPrecache()
 struct
 {
 	// READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
-	vector position = Vector(0.5, 0.5)
-	bool horizontal = false
-	bool renderOnCockpit = false
-	float size = 40
-	bool justifyLeft = false
+	vector position = Vector(0.25, 0.85)
+	bool horizontal = true
+	bool renderOnCockpit = true
+	float size = 25
+	bool autoPosition = true
+	bool justifyLeft = true
 	float padding = 1
 	float textAlpha = 1
 
 	vector onColor = Vector(1, 1, 1)
-	vector offColor = Vector(0.2, 0.2, 0.2)
+	vector offColor = Vector(0.1, 0.1, 0.1)
 
 	array<int> keyListeners = [
 		IN_FORWARD,
 		IN_MOVELEFT,
 		IN_BACK,
 		IN_MOVERIGHT,
+		IN_JUMP,
+		IN_DUCK,
+		IN_OFFHAND0,
+		IN_OFFHAND1
 	]
 	array<string> keyDisplays = [
 		"W",
 		"A",
 		"S",
 		"D",
+		"J",
+		"C",
+		"G",
+		"T",
+	]
+	array<vector> keyPositions = [
+		Vector(0.25, 0.85),
+		Vector(0.35, 0.85),
+		Vector(0.45, 0.85),
+		Vector(0.55, 0.85),
+		Vector(0.65, 0.85),
+		Vector(0.75, 0.85),
+		Vector(0.85, 0.85),
+		Vector(0.95, 0.85),
 	]
 } settings
 // READ THE README FOR DESCRIPTIONS OF THESE SETTINGS
@@ -109,7 +128,10 @@ void function inputDisplayInit()
 			cumulativeDisplacement += Vector(0, displacement.y)
 
 		// Position the text
-		RuiSetFloat2(inputDisplayRUIs[i], "msgPos", textPosition)
+		if (settings.autoPosition)
+			RuiSetFloat2(inputDisplayRUIs[i], "msgPos", textPosition)
+		else
+			RuiSetFloat2(inputDisplayRUIs[i], "msgPos", settings.keyPositions[i])
 
 		RuiSetInt(inputDisplayRUIs[i], "maxLines", 1)
 		RuiSetInt(inputDisplayRUIs[i], "lineNum", 1)
