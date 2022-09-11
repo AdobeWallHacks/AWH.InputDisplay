@@ -3,7 +3,7 @@
     "Description": "A minimalist little input display",
 	"LoadPriority": 2,
 	"RequiredOnClient": false,
-	"Version": "1.0",
+	"Version": "1.1",
 
     "ConVars": [],
     "Scripts": [
